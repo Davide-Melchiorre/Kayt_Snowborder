@@ -1,9 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <ctime>
-#include <cstring>
-#include <string.h>
-#include <stdio.h>
+#include <sstream>
+#include <cmath>
+#include <time.h>
 
 using namespace std;
 
@@ -12,49 +11,91 @@ const int c=10;
 struct Atleta
 {
     string matricola,cognome;
-    string x,y,distanza;
+    int x[30],y[30];
+    float distanza;
 };
 
-void Generazionefile(Atleta snowborder[], int &i)
+void visualizzazione(Atleta snowborder[], int &i)
 {
     ifstream fin("atleti.csv");
     string str;
-    int x,y,x2,y2,xp=0,yp=0;
     while(getline(fin,str, ';'))
     {
         snowborder[i].matricola=str;
         cout<<str<<" ";
-        getline(fin,snowborder[i].cognome, ';');
+        getline(fin,snowborder[i].cognome);
         cout<<snowborder[i].cognome<<" ";
-        getline(fin,snowborder[i].x, ';');
-        cout<<snowborder[i].x<<" ";
-        getline(fin,snowborder[i].y, ';');
-        cout<<snowborder[i].y<<" ";
-        getline(fin,snowborder[i].distanza);
-        cout<<snowborder[i].distanza<<" ";
         i++;
         cout<<endl;
     }
     fin.close();
+}
 
-    for (int a=0;a<30;a++)
+void gestione(Atleta snowborder[], int &i)
+{
+    int x=0,y=0,x1=11,y1=0;
+    for(int h=0; h<i; h++)
     {
-        do{
-            x=rand()%101;
-            y=rand()%101;
-            x2=rand()%101;
-            y2=rand()%101;
-        }while(x<=x2 && y<=y2 && x>xp);
-        xp=x;
-        yp=y;
-        cout<<x<<endl;
-        //cout<<y<<endl;
+        snowborder[h].x[0]=0;
+        snowborder[h].y[0]=0;
+        for(int k=1; k<=30; k++)
+        {
+                x=rand()%x1+y;
+                if(k%3==0)
+                    y=y+10;
+            snowborder[h].x[k]=rand()%101;
+            snowborder[h].y[k]=x;
+
+        }
+        y=0;
     }
 
+    for(int h=0; h<i; h++)
+    {
+        for(int k=1; k<=30; k++)
+        {
+            snowborder[h].distanza+=sqrt((pow(snowborder[h].x[k]-snowborder[h].x[k-1],2))+(pow(snowborder[h].y[k]-snowborder[h].y[k-1],2)));
+        }
+    }
+    cout<<endl<<"Coordinate generate correttamente!"<<endl<<endl;
 
+    fstream fout("atleti.csv");
+    for(int h=0; h<i; h++)
+    {
+        fout<<snowborder[h].matricola<<';';
+        fout<<snowborder[h].cognome<<';';
+        for(int k=1; k<=30; k++)
+        {
+        fout<<snowborder[h].x[k]<<';';
+        fout<<snowborder[h].y[k]<<';';
+        }
+        fout<<snowborder[h].distanza<<endl;
+    }
+    fout.close();
+
+    /*for(int h=0; h<i; h++)
+    {
+        cout<<snowborder[h].matricola<<"  "<<snowborder[h].cognome<<"  "<<snowborder[h].distanza<<endl;
+    }*/
+}
+
+void risultati(Atleta snowborder[], int &i)
+{
+    cout<<endl<<"I RISULTATI DELLA GARA SONO :"<<endl;
+    for(int h=0; h<i; h++)
+    {
+        cout<<"  "<<snowborder[h].matricola<<"  "<<snowborder[h].cognome<<"  "<<snowborder[h].distanza<<endl;
+    }
+    cout<<endl;
+}
+
+void podio(Atleta snowborder[], int &i)
+{
+    Atleta appoggio;
 
 }
-//sqrt((pow(x[i]-x[i+1],2))+(pow(y[i]-y[i+1],2)));
+
+
 int main()
 {
     srand(time(NULL));
@@ -62,9 +103,9 @@ int main()
     int i=0;
     int scelta;
     do{
-        cout<<"1-Generazione del file e delle coordinate"<<endl;
-        cout<<"2-Stampa atleti"<<endl;
-        cout<<"3-ricerca atleti"<<endl;
+        cout<<"1-Visualizza atleti"<<endl;
+        cout<<"2-Generazione del file e delle coordinate"<<endl;
+        cout<<"3-Visualizza risultati"<<endl;
         cout<<"4-stampa del podio"<<endl;
         cout<<"5-Uscita"<<endl<<">>";
         cin>>scelta;
@@ -72,19 +113,29 @@ int main()
                 {
                     case 1:
                         cout<<endl;
-                        Generazionefile(snowborder,i);
+                        visualizzazione(snowborder,i);
                         cout<<endl;
                         break;
                     case 2:
-
+                        gestione(snowborder,i);
                         break;
                     case 3:
-
+                        risultati(snowborder,i);
                         break;
                     case 4:
-
+                        podio(snowborder,i);
                         break;
                 }
     }while(scelta!=5);
     return 0;
 }
+/*1;D'Addetta
+2;Di vito
+3;De Bonis
+4;Saracino
+5;Martella
+6;Mischitelli
+7;Di Tullo
+8;Gentile
+9;Totaro
+10;Pompilio*/
