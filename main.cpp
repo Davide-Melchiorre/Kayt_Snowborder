@@ -38,10 +38,11 @@ struct Atleta
 };
 
 /*!
-    \fn visualizzazione()
+    \fn visualizzazione(Atleta snowborder[], int &i)
+    \param snowborder vettore di struct
+    \param i contatore del numero di partecipanti
     \brief serve per caricare il vettore di struct e visualizzare i partecipanti
-    \param[in] snowborder vettore di struct
-    \param[in] i contatore del numero di partecipanti
+
 */
 void visualizzazione(Atleta snowborder[], int &i)
 {
@@ -69,10 +70,10 @@ void visualizzazione(Atleta snowborder[], int &i)
 }
 
 /*!
-    \fn gestione()
+    \fn gestione(Atleta snowborder[], int &i)
+    \param snowborder vettore di struct
+    \param i contatore del numero di partecipanti
     \brief gestisce le coordinate mettendole nel vettore e calcola la distanza
-    \param[in] snowborder vettore di struct
-    \param[in] i contatore del numero di partecipanti
 */
 void gestione(Atleta snowborder[], int &i)
 {
@@ -128,7 +129,7 @@ void gestione(Atleta snowborder[], int &i)
         //! \brief ciclo for che scorre per 30 che sarebbero i minuti
         for(int k=0; k<30; k++)
         {
-            //! \brief viene scritto nel file tutte le coordinate di X
+            //!\brief viene scritto nel file tutte le coordinate di X
             fout<<snowborder[h].x[k]<<';';
             //! \brief viene scritto nel file tutte le coordinate di Y
             fout<<snowborder[h].y[k]<<';';
@@ -142,10 +143,11 @@ void gestione(Atleta snowborder[], int &i)
 }
 
 /*!
-    \fn risultati()
+    \fn risultati(Atleta snowborder[], int &i)
+    \param snowborder vettore di struct
+    \param i contatore del numero di partecipanti
     \brief fornisce i risultati ottenuti
-    \param[out] snowborder vettore di struct
-    \param[out] i contatore del numero di partecipanti
+
 */
 
 void risultati(Atleta snowborder[], int &i)
@@ -161,11 +163,11 @@ void risultati(Atleta snowborder[], int &i)
 }
 
 /*!
-    \fn podio()
+    \fn podio(Atleta snowborder[], int &i, int &scelta)
+    \param snowborder vettore di struct
+    \param i contatore del numero di partecipanti
+    \param scelta sarebbe il numero del menu che serve per far terminare il programma
     \brief calcolo del podio
-    \param[out] snowborder vettore di struct
-    \param[out] i contatore del numero di partecipanti
-    \param[out] scelta sarebbe il numero del menu che serve per far terminare il programma
 */
 
 void podio(Atleta snowborder[], int &i, int &scelta)
