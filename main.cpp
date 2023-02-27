@@ -170,7 +170,7 @@ void risultati(Atleta snowborder[], int &i)
     \brief calcolo del podio
 */
 
-void podio(Atleta snowborder[], int &i, int &scelta)
+void podio(Atleta snowborder[], int &i)
 {
     //! \var appoggio
     //! \brief variabile di appoggio che serve per lo scambio tra i partecipanti
@@ -217,11 +217,6 @@ void podio(Atleta snowborder[], int &i, int &scelta)
         //! \brief azzeramento del contatore dei partecipanti
         i=0;
     }
-    else
-    {
-        //! \brief serve per far terminare il ciclo do while nel main
-        scelta=5;
-    }
 }
 
 /*!
@@ -263,7 +258,7 @@ int main()
                         break;
                     case 4:
                         cout<<endl;
-                        podio(snowborder,i,scelta);
+                        podio(snowborder,i);
                         cout<<endl;
                         break;
                 }
